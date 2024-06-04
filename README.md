@@ -2,7 +2,9 @@
 
 Network Operation Center
 
-> Node 18.17.1
+`Node 18.17.1`
+
+> Permite mantener escucha de un servicio en este caso una url, emite un mensaje cada tiempo definido con mensajes de ok o error
 
 ## Ejemplos de formato ISO  para temporizador
 
@@ -13,3 +15,5 @@ Network Operation Center
       '/25 * * * *', // Esto significa "cada 25 minutos"
       '0 4 * * *', // Esto significa "a las 4 horas del día"
 ```
+
+[More Examples of cron](https://github.com/kelektiv/node-cron/tree/main/examples)
