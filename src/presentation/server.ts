@@ -1,12 +1,17 @@
 import { CheckService } from "../domain/use-cases/checks/check-service";
+import { FileSystemDatasource } from "../infrastructure/datasources/file-system.datasource";
+import { LogRepositoryImpl } from "../infrastructure/repository/log.repository.impl";
 import { CronService } from "./cron/cron-service";
 
-
+const fileSystemLogRepository = new LogRepositoryImpl(
+  new FileSystemDatasource(), // Se inyecta la dependencia
+)
 
 export class Server {
 
   static executeCheckService(url: string) {
     new CheckService(
+      fileSystemLogRepository,
       () => console.log(`Url: ${url} - status: Ok`),
       (error) => console.error('Error', error)
     ).execute(url);
