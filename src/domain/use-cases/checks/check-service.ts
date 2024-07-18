@@ -32,7 +32,7 @@ export class CheckService implements CheckService {
       return true;
 
     } catch (error) {
-      const errorMessage = `${error}`
+      const errorMessage = `${url} is not ok. ${error}`
       const log = new LogEntity(LogSeverityLevel.ERROR, errorMessage);
       this.logRepository.saveLog(log);
       this.errorCallback(errorMessage);
