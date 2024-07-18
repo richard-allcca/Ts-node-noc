@@ -2,9 +2,13 @@
 
 Network Operation Center
 
-`Node 18.17.1`
-
 > Permite mantener escucha de un servicio en este caso una url, emite un mensaje cada tiempo definido con mensajes de ok o error
+
+## Run project
+
+`Node 18.17.1`
+Clonar .example.env a .env
+Configurar variables de entorno
 
 ## Ejemplos de formato ISO  para temporizador
 
