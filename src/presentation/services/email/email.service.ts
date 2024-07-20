@@ -1,7 +1,5 @@
-import nodemailer from 'nodemailer'
+import nodemailer from 'nodemailer';
 import { envs } from '../../../config/plugins/envs.plugin';
-import { LogRepository } from '../../../domain/repository/log.repository';
-import { LogEntity, LogSeverityLevel } from '../../../domain/entities/log.entity';
 
 interface IAttachment {
   filename: string;
@@ -18,18 +16,16 @@ interface ISendMailOptions {
 export class EmailService {
 
   config = {
-      service: envs.MAILER_SERVICE,
-      auth: {
-        user: envs.MAILER_EMAIL,
-        pass: envs.MAILER_SECRET_KEY
-      }
+    service: envs.MAILER_SERVICE,
+    auth: {
+      user: envs.MAILER_EMAIL,
+      pass: envs.MAILER_SECRET_KEY
     }
+  };
 
-  private transporter = nodemailer.createTransport(this.config)
+  private transporter = nodemailer.createTransport(this.config);
 
-  constructor (
-    private readonly logRepository: LogRepository
-  ) {}
+  constructor() {}
 
   async sendMail(options: ISendMailOptions) {
     const { to, subject, htmlBody, attachments = [] } = options;
@@ -42,29 +38,13 @@ export class EmailService {
         subject,
         html: htmlBody,
         attachments: attachments
-      })
+      });
 
-      const optionsLogEntity = {
-        level: LogSeverityLevel.LOW,
-        message: `Email sent to ${to}`,
-        origin: 'EmailService.ts',
-      };
-      const log = new LogEntity(optionsLogEntity)
-      this.logRepository.saveLog(log)
-
-      console.log(sentInformation)
+      console.log(sentInformation);
       return true;
     } catch (error) {
 
-      const optionsLogEntity = {
-        level: LogSeverityLevel.HIGH,
-        message: `Email not sent to ${to}`,
-        origin: 'EmailService.ts',
-      };
-      const log = new LogEntity(optionsLogEntity)
-      this.logRepository.saveLog(log)
-
-      console.log(error)
+      console.log(error);
       return false;
     }
   }
@@ -94,9 +74,9 @@ export class EmailService {
       subject: 'Test email with attachments',
       htmlBody: '<h1>Test email with attachments</h1>',
       attachments: attachments
-    }
+    };
 
-    return this.sendMail(optionsMail)
+    return this.sendMail(optionsMail);
   }
 
 }

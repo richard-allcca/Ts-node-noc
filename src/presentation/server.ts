@@ -1,4 +1,5 @@
 import { CheckService } from "../domain/use-cases/checks/check-service";
+import { SendEmailLogs } from "../domain/use-cases/email/send-email-logs";
 import { FileSystemDatasource } from "../infrastructure/datasources/file-system.datasource";
 import { LogRepositoryImpl } from "../infrastructure/repository/log.repository.impl";
 import { CronService } from "./services/cron/cron-service";
@@ -6,7 +7,9 @@ import { EmailService } from "./services/email/email.service";
 
 const fileSystemLogRepository = new LogRepositoryImpl(
   new FileSystemDatasource(), // Data source - inyecta la dependencia
-)
+);
+
+const emailService = new EmailService();
 
 export class Server {
 
@@ -21,22 +24,22 @@ export class Server {
   public static start() {
     console.log('Server started.....');
 
-    const emailService = new EmailService(
-      fileSystemLogRepository
-    )
 
-    // - Send mails single
+    // Send mails with case use
+    new SendEmailLogs(
+      emailService,
+      fileSystemLogRepository
+    ).execute([
+      '"Richard A." <richard_allcca_llano@hotmail.com>',
+      '"Thouma dev" <rallcca28@gmail.com>',
+    ]);
+
+    // Send mails single
     // emailService.sendMail({
     //   to: 'richard_allcca_llano@hotmail.com',
     //   subject: 'Test email',
     //   htmlBody: '<h1>Test email</h1>',
-    // })
-
-    // - Send mails with attachments
-    emailService.sendMailWithAttachments([
-      '"Richard A." <richard_allcca_llano@hotmail.com>',
-      '"Thouma dev" <rallcca28@gmail.com>',
-    ])
+    // });
 
     // - Create logs
     const url = 'https://www.google.com';
