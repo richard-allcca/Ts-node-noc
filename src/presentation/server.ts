@@ -1,8 +1,8 @@
 import { CheckService } from "../domain/use-cases/checks/check-service";
 import { FileSystemDatasource } from "../infrastructure/datasources/file-system.datasource";
 import { LogRepositoryImpl } from "../infrastructure/repository/log.repository.impl";
-import { CronService } from "../domain/services/cron/cron-service";
-import { EmailService } from "../domain/services/email/email.service";
+import { CronService } from "./services/cron/cron-service";
+import { EmailService } from "./services/email/email.service";
 
 const fileSystemLogRepository = new LogRepositoryImpl(
   new FileSystemDatasource(), // Data source - inyecta la dependencia
@@ -21,19 +21,24 @@ export class Server {
   public static start() {
     console.log('Server started.....');
 
-    const emailService = new EmailService()
+    const emailService = new EmailService(
+      fileSystemLogRepository
+    )
 
-    // Send mails single
+    // - Send mails single
     // emailService.sendMail({
     //   to: 'richard_allcca_llano@hotmail.com',
     //   subject: 'Test email',
     //   htmlBody: '<h1>Test email</h1>',
     // })
 
-    // Send mails with attachments
-    emailService.sendMailWithAttachments('"cristina janet villa gata" <skorpi010828@gmail.com>')
+    // - Send mails with attachments
+    emailService.sendMailWithAttachments([
+      '"Richard A." <richard_allcca_llano@hotmail.com>',
+      '"Thouma dev" <rallcca28@gmail.com>',
+    ])
 
-    // Create logs
+    // - Create logs
     const url = 'https://www.google.com';
     // const url = 'http://localhost:3000/';// localhost de el proyecto json-server
 
