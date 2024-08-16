@@ -21,3 +21,8 @@ Configurar variables de entorno
 ```
 
 [More Examples of cron](https://github.com/kelektiv/node-cron/tree/main/examples)
+
+## Resources
+
+- Node mailer [Link](https://nodemailer.com/)
+- Mongoose [Link](https://mongoosejs.com/)
