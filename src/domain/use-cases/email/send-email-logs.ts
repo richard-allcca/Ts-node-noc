@@ -15,6 +15,7 @@ export class SendEmailLogs implements ISendLogEmailUseCase {
 
   async execute(to: string | string[]) {
     try {
+      // Send mails
       const sent = await this.emailService.sendMailWithAttachments(to);
       if (!sent) {
         throw new Error('Email not sent');
