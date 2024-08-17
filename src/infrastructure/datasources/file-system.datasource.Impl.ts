@@ -82,13 +82,13 @@ export class FileSystemDatasourceImpl implements LogDatasource {
   async getLogs(severityLevel: LogSeverityLevel): Promise<LogEntity[]> {
 
     switch (severityLevel) {
-      case LogSeverityLevel.INFO:
+      case LogSeverityLevel.LOW:
         // logsPath = this.infoLogsPath;
         return this.getLogsFromFile(this.infoLogsPath);
-      case LogSeverityLevel.WARNING:
+      case LogSeverityLevel.MEDIUM:
         // logsPath = this.warningLogsPath;
         return this.getLogsFromFile(this.warningLogsPath);
-      case LogSeverityLevel.ERROR:
+      case LogSeverityLevel.HIGH:
         return this.getLogsFromFile(this.errorLogsPath);
       default:
         throw new Error(`Invalid severity level ${severityLevel}`);

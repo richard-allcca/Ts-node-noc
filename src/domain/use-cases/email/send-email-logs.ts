@@ -30,6 +30,10 @@ export class SendEmailLogs implements ISendLogEmailUseCase {
       const log = new LogEntity(optionsLogEntity);
       this.logRepository.saveLog(log);
 
+      // Show logs in console
+      const logs = await this.logRepository.getLogs(LogSeverityLevel.HIGH);
+      console.log(logs);
+
       return true;
     } catch (error) {
       const optionsLogEntity = {

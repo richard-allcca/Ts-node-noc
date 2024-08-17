@@ -11,6 +11,7 @@ Clonar .example.env a .env
 Configurar variables de entorno
 
 > Para trabajar con mongo necesitas correr el comando ***docker compose up -a***
+> También necesitas activar la conexión a la db en app.ts
 
 ## Ejemplos de formato ISO  para temporizador
 
