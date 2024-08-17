@@ -10,6 +10,8 @@ Network Operation Center
 Clonar .example.env a .env
 Configurar variables de entorno
 
+> Para trabajar con mongo necesitas correr el comando ***docker compose up -a***
+
 ## Ejemplos de formato ISO  para temporizador
 
 ```js

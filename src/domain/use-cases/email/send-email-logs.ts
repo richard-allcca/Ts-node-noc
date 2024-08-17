@@ -26,6 +26,7 @@ export class SendEmailLogs implements ISendLogEmailUseCase {
         message: `Email not sent to ${to}`,
         origin: 'SendEmailLogs.ts',
       };
+
       const log = new LogEntity(optionsLogEntity);
       this.logRepository.saveLog(log);
 

@@ -1,5 +1,5 @@
 import { envs } from "./config/plugins/envs.plugin";
-import { MongoDatabase } from "./data/mongo";
+import { LogModel, MongoDatabase } from "./data/mongo";
 import { Server } from "./presentation/server";
 
 
@@ -21,5 +21,20 @@ async function main() {
     }
   )
 
-  Server.start();
+  // Crear una colección = tabla, documento = registro
+  // const newLog = await LogModel.create({
+  //   message: 'Test message from MongoDB',
+  //   origin: 'Test origin',
+  //   level: 'high'
+  // })
+
+  // await newLog.save();
+
+  // console.log(newLog)
+
+  // Obtener todos los documentos
+  const logs = await LogModel.find();
+  console.log(logs)
+
+  // Server.start();
 }

@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "tsnd --respawn --clear src/app.ts",
     "build": "rimraf ./dist && tsc",
-    "start": "npm run build && node dist/app.js"
+    "start": "npm run build && node dist/app.js",
+    "docker-up": "docker-compose up -d",
+    "docker-down": "docker-compose down"
   },
   "keywords": [],
   "author": "",

@@ -5,11 +5,11 @@ import { LogRepositoryImpl } from "../infrastructure/repository/log.repository.i
 import { CronService } from "./services/cron/cron-service";
 import { EmailService } from "./services/email/email.service";
 
+const emailService = new EmailService();
+
 const fileSystemLogRepository = new LogRepositoryImpl(
   new FileSystemDatasource(), // Data source - inyecta la dependencia
 );
-
-const emailService = new EmailService();
 
 export class Server {
 
@@ -25,7 +25,7 @@ export class Server {
     console.log('Server started.....');
 
 
-    // Send mails with case use
+    // Send mails with case use 'service and repository'
     new SendEmailLogs(
       emailService,
       fileSystemLogRepository
