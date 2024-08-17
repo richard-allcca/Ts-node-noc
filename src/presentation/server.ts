@@ -28,13 +28,13 @@ export class Server {
 
 
     // Send mails with case use 'service and repository'
-    // new SendEmailLogs(
-    //   emailService,
-    //   fileSystemLogRepository
-    // ).execute([
-    //   '"Richard A." <richard_allcca_llano@hotmail.com>',
-    //   '"Thouma dev" <rallcca28@gmail.com>',
-    // ]);
+    new SendEmailLogs(
+      emailService,
+      logRepository
+    ).execute([
+      '"Richard A." <richard_allcca_llano@hotmail.com>',
+      '"Thouma dev" <rallcca28@gmail.com>',
+    ]);
 
     // Send mails single
     // emailService.sendMail({
