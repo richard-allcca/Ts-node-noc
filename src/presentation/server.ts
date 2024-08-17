@@ -1,21 +1,23 @@
 import { CheckService } from "../domain/use-cases/checks/check-service";
 import { SendEmailLogs } from "../domain/use-cases/email/send-email-logs";
-import { FileSystemDatasource } from "../infrastructure/datasources/file-system.datasource";
+import { FileSystemDatasourceImpl } from "../infrastructure/datasources/file-system.datasource.Impl";
 import { LogRepositoryImpl } from "../infrastructure/repository/log.repository.impl";
 import { CronService } from "./services/cron/cron-service";
 import { EmailService } from "./services/email/email.service";
+import { MongoLogDatasourceImpl } from './../infrastructure/datasources/mongo-log.datasource.impl';
 
 const emailService = new EmailService();
 
-const fileSystemLogRepository = new LogRepositoryImpl(
-  new FileSystemDatasource(), // Data source - inyecta la dependencia
+const logRepository = new LogRepositoryImpl(
+  new FileSystemDatasourceImpl(), // inyección de data source con file system
+  // new MongoLogDatasourceImpl(), // inyección de data source con mongo db
 );
 
 export class Server {
 
   static executeCheckService(url: string) {
     new CheckService(
-      fileSystemLogRepository,
+      logRepository,
       () => console.log(`Url: ${url} - status: Ok`),
       (error) => console.error('Error', error)
     ).execute(url);
@@ -26,13 +28,13 @@ export class Server {
 
 
     // Send mails with case use 'service and repository'
-    new SendEmailLogs(
-      emailService,
-      fileSystemLogRepository
-    ).execute([
-      '"Richard A." <richard_allcca_llano@hotmail.com>',
-      '"Thouma dev" <rallcca28@gmail.com>',
-    ]);
+    // new SendEmailLogs(
+    //   emailService,
+    //   fileSystemLogRepository
+    // ).execute([
+    //   '"Richard A." <richard_allcca_llano@hotmail.com>',
+    //   '"Thouma dev" <rallcca28@gmail.com>',
+    // ]);
 
     // Send mails single
     // emailService.sendMail({

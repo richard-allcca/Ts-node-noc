@@ -2,7 +2,7 @@ import fs from "fs";
 import { LogDatasource } from "../../domain/datasources/log.datasource";
 import { LogEntity, LogSeverityLevel } from "../../domain/entities/log.entity";
 
-export class FileSystemDatasource implements LogDatasource {
+export class FileSystemDatasourceImpl implements LogDatasource {
   private readonly logPath: string = "logs/";
   private readonly allLogsPath: string = this.logPath + "logs-all.log";
   private readonly infoLogsPath: string = this.logPath + "logs-info.log";
@@ -13,6 +13,10 @@ export class FileSystemDatasource implements LogDatasource {
     this.createLogsFiles();
   }
 
+  /**
+   * Create logs directory and files if they don't exist
+   * @async
+   */
   private createLogsFiles = async () => {
     if (!fs.existsSync(this.logPath)) {
       fs.mkdirSync(this.logPath);
@@ -33,6 +37,11 @@ export class FileSystemDatasource implements LogDatasource {
     });
   };
 
+  /**
+   * Save a new log in the file system
+   * @async
+   * @param {LogEntity} newLog
+   */
   async saveLog(newLog: LogEntity): Promise<void> {
 
     const logJson = `${JSON.stringify(newLog)}\n`;
@@ -42,13 +51,13 @@ export class FileSystemDatasource implements LogDatasource {
 
     // Agrega los logs según su severidad
     switch (newLog.level) {
-      case LogSeverityLevel.INFO:
+      case LogSeverityLevel.LOW:
         fs.appendFileSync(this.infoLogsPath, logJson);
         break;
-      case LogSeverityLevel.WARNING:
+      case LogSeverityLevel.MEDIUM:
         fs.appendFileSync(this.warningLogsPath, logJson);
         break;
-      case LogSeverityLevel.ERROR:
+      case LogSeverityLevel.HIGH:
         fs.appendFileSync(this.errorLogsPath, logJson);
         break;
       default:
@@ -64,6 +73,12 @@ export class FileSystemDatasource implements LogDatasource {
     return logs;
   }
 
+  /**
+   * Get all logs from the file system
+   * @async
+   * @param {LogSeverityLevel} severityLevel
+   * @returns {Promise<LogEntity[]>}
+   */
   async getLogs(severityLevel: LogSeverityLevel): Promise<LogEntity[]> {
 
     switch (severityLevel) {
@@ -78,34 +93,5 @@ export class FileSystemDatasource implements LogDatasource {
       default:
         throw new Error(`Invalid severity level ${severityLevel}`);
     }
-
-    // return new Promise((resolve, reject) => {
-    //   let logsPath = this.allLogsPath;
-
-    //   switch (severityLevel) {
-    //     case LogSeverityLevel.INFO:
-    //       logsPath = this.infoLogsPath;
-    //       break;
-    //     case LogSeverityLevel.WARNING:
-    //       logsPath = this.warningLogsPath;
-    //       break;
-    //     case LogSeverityLevel.ERROR:
-    //       logsPath = this.errorLogsPath;
-    //       break;
-    //     default:
-    //       break;
-    //   }
-
-    //   fs.readFile(logsPath, (err, data) => {
-    //     if (err) {
-    //       reject(err);
-    //     } else {
-    //       const logs = data.toString().split("\n");
-    //       logs.pop();
-    //       const logsJson = logs.map((log) => JSON.parse(log));
-    //       resolve(logsJson);
-    //     }
-    //   });
-    // });
   }
 }

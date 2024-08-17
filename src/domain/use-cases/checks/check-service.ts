@@ -27,7 +27,7 @@ export class CheckService implements CheckService {
       }
 
       const optionsLogEntity = {
-        level: LogSeverityLevel.INFO,
+        level: LogSeverityLevel.LOW,
         message: `Service ${url} is OK`,
         origin: 'CheckService.ts'
       };
@@ -40,7 +40,7 @@ export class CheckService implements CheckService {
     } catch (error) {
       const errorMessage = `${url} is not ok. ${error}`
       const optionsLogEntity = {
-        level: LogSeverityLevel.ERROR,
+        level: LogSeverityLevel.HIGH,
         message: errorMessage,
         origin: 'CheckService.ts'
       }
