@@ -25,6 +25,12 @@ export class Server {
   public static start() {
     console.log('Server started.....');
 
+    // Send mails single
+    // emailService.sendMail({
+    //   to: 'richard_allcca_llano@hotmail.com',
+    //   subject: 'Test email',
+    //   htmlBody: '<h1>Test email</h1>',
+    // });
 
     // Send mails with case use 'service and repository'
     new SendEmailLogs(
@@ -35,22 +41,13 @@ export class Server {
       '"Thouma dev" <rallcca28@gmail.com>',
     ]);
 
-    // Send mails single
-    // emailService.sendMail({
-    //   to: 'richard_allcca_llano@hotmail.com',
-    //   subject: 'Test email',
-    //   htmlBody: '<h1>Test email</h1>',
-    // });
-
-    // - Create logs
+    // - Url for job with 'cron'
     const url = 'https://www.google.com';
     // const url = 'http://localhost:3000/';// localhost de el proyecto json-server
 
     CronService.createJob(
       `*/5 * * * * *`, // Esto significa "cada 5 segundos"
-      () => {
-        Server.executeCheckService(url);
-      }
+      () => Server.executeCheckService(url)
     );
   }
 }

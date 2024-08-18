@@ -8,6 +8,12 @@ export interface CheckService {
 type SuccessCallback = () => void;
 type ErrorCallback = (error: string) => void;
 
+/**
+ * Clase que implementa la interfaz CheckService.
+ * Esta clase se encarga de verificar si un servicio está disponible.
+ * @class CheckService
+ * @implements {CheckService}
+ */
 export class CheckService implements CheckService {
 
   constructor(
