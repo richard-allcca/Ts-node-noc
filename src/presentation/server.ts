@@ -4,12 +4,14 @@ import { FileSystemDatasourceImpl } from "../infrastructure/datasources/file-sys
 import { LogRepositoryImpl } from "../infrastructure/repository/log.repository.impl";
 import { CronService } from "./services/cron/cron-service";
 import { EmailService } from "./services/email/email.service";
+import { PostgresLogDatasourceImpl } from './../infrastructure/datasources/postgres-log.datasource.Impl';
 
 const emailService = new EmailService();
 
 const logRepository = new LogRepositoryImpl(
-  new FileSystemDatasourceImpl(), // inyección de data source con file system
+  // new FileSystemDatasourceImpl(), // inyección de data source con file system
   // new MongoLogDatasourceImpl(), // inyección de data source con mongo db
+  new PostgresLogDatasourceImpl(), // inyección de data source con Postgres
 );
 
 export class Server {
@@ -33,13 +35,13 @@ export class Server {
     // });
 
     // Send mails with case use 'service and repository'
-    new SendEmailLogs(
-      emailService,
-      logRepository
-    ).execute([
-      '"Richard A." <richard_allcca_llano@hotmail.com>',
-      '"Thouma dev" <rallcca28@gmail.com>',
-    ]);
+    // new SendEmailLogs(
+    //   emailService,
+    //   logRepository
+    // ).execute([
+    //   '"Richard A." <richard_allcca_llano@hotmail.com>',
+    //   '"Thouma dev" <rallcca28@gmail.com>',
+    // ]);
 
     // - Url for job with 'cron'
     const url = 'https://www.google.com';

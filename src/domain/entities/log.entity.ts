@@ -1,8 +1,5 @@
 
 export enum LogSeverityLevel {
-  INFO = 'info',
-  WARNING = 'warning',
-  ERROR = 'error',
   LOW = 'low',
   MEDIUM = 'medium',
   HIGH = 'high'

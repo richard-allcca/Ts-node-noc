@@ -29,3 +29,15 @@ Configurar variables de entorno
 
 - Node mailer [Link](https://nodemailer.com/)
 - Mongoose [Link](https://mongoosejs.com/)
+- Prisma [Link](https://www.prisma.io/docs/getting-started/quickstart)
+
+## Pasos para uso y configuración de Prisma
+
+```bash
+      npm install prisma --save-dev
+      npx prisma init --datasource-provider postgres
+
+      # crea tu schema en /schema.prisma
+
+      npx prisma migrate dev --name init
+```

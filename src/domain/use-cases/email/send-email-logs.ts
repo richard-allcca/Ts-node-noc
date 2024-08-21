@@ -22,7 +22,7 @@ export class SendEmailLogs implements ISendLogEmailUseCase {
       };
 
       const optionsLogEntity = {
-        level: LogSeverityLevel.INFO,
+        level: LogSeverityLevel.MEDIUM,
         message: `Email not sent to ${to}`,
         origin: 'SendEmailLogs.ts',
       };
@@ -37,7 +37,7 @@ export class SendEmailLogs implements ISendLogEmailUseCase {
       return true;
     } catch (error) {
       const optionsLogEntity = {
-        level: LogSeverityLevel.ERROR,
+        level: LogSeverityLevel.HIGH,
         message: `${error}`,
         origin: 'SendEmailLogs.ts',
       };
