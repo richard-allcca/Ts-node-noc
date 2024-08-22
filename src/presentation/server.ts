@@ -1,27 +1,41 @@
-import { CheckService } from "../domain/use-cases/checks/check-service";
-import { SendEmailLogs } from "../domain/use-cases/email/send-email-logs";
+import { CheckServiceMultiple } from "../domain/use-cases/checks/check-service-multipe";
 import { FileSystemDatasourceImpl } from "../infrastructure/datasources/file-system.datasource.Impl";
+import { MongoLogDatasourceImpl } from "../infrastructure/datasources/mongo-log.datasource.impl";
 import { LogRepositoryImpl } from "../infrastructure/repository/log.repository.impl";
+import { PostgresLogDatasourceImpl } from './../infrastructure/datasources/postgres-log.datasource.Impl';
 import { CronService } from "./services/cron/cron-service";
 import { EmailService } from "./services/email/email.service";
-import { PostgresLogDatasourceImpl } from './../infrastructure/datasources/postgres-log.datasource.Impl';
 
 const emailService = new EmailService();
 
 const logRepository = new LogRepositoryImpl(
-  // new FileSystemDatasourceImpl(), // inyección de data source con file system
-  // new MongoLogDatasourceImpl(), // inyección de data source con mongo db
+  new FileSystemDatasourceImpl(), // inyección de data source con file system
+);
+
+const logRepositoryMongo = new LogRepositoryImpl(
+  new MongoLogDatasourceImpl(), // inyección de data source con mongo db
+);
+
+const logRepositoryPostgres = new LogRepositoryImpl(
   new PostgresLogDatasourceImpl(), // inyección de data source con Postgres
 );
 
 export class Server {
 
   static executeCheckService(url: string) {
-    new CheckService(
-      logRepository,
+    // Ejecución de log repository independiente
+    // new CheckService(
+    //   logRepositoryMongo,
+    //   () => console.log(`Url: ${url} - status: Ok`),
+    //   (error) => console.error('Error', error)
+    // ).execute(url);
+
+    // Ejecución de log repositorio multiple
+    new CheckServiceMultiple(
+      [ logRepository ,logRepositoryMongo, logRepositoryPostgres ],
       () => console.log(`Url: ${url} - status: Ok`),
       (error) => console.error('Error', error)
-    ).execute(url);
+    ).execute(url)
   }
 
   public static start() {
