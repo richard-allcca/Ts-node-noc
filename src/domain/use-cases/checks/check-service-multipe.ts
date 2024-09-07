@@ -60,8 +60,6 @@ export class CheckServiceMultiple implements CheckServiceMultiple {
       this.callLogs(log);
       this.errorCallback(errorMessage);
       return false;
-
     }
-
   }
 }

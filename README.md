@@ -7,11 +7,16 @@ Network Operation Center
 ## Run project
 
 `Node 18.17.1`
-Clonar .example.env a .env
-Configurar variables de entorno
 
-> Para trabajar con mongo necesitas correr el comando ***docker compose up -a***
-> También necesitas activar la conexión a la db en app.ts
+- Clonar .example.env a .env
+- Configurar variables de entorno
+- Levantar los contenedores ***docker compose up -a***
+- Prisma reset:
+
+```bash
+      # DB en carpetas locales
+      npx prisma migrate dev
+```
 
 ## Ejemplos de formato ISO  para temporizador
 
@@ -25,19 +30,20 @@ Configurar variables de entorno
 
 [More Examples of cron](https://github.com/kelektiv/node-cron/tree/main/examples)
 
-## Resources
-
-- Node mailer [Link](https://nodemailer.com/)
-- Mongoose [Link](https://mongoosejs.com/)
-- Prisma [Link](https://www.prisma.io/docs/getting-started/quickstart)
-
-## Pasos para uso y configuración de Prisma
+## Configuración de Prisma
 
 ```bash
       npm install prisma --save-dev
+
       npx prisma init --datasource-provider postgres
 
       # crea tu schema en /schema.prisma
 
       npx prisma migrate dev --name init
 ```
+
+## Resources
+
+- Node mailer [Documentación](https://nodemailer.com/)
+- Mongoose [Documentación](https://mongoosejs.com/)
+- Prisma [Documentación](https://www.prisma.io/docs/getting-started/quickstart)

@@ -3,6 +3,7 @@ import { LogDatasource } from "../../domain/datasources/log.datasource";
 import { LogEntity, LogSeverityLevel } from "../../domain/entities/log.entity";
 import { LogModel } from './../../data/mongo/models/log.model';
 
+// Cliente basado en el scheme creado
 const prismaClient = new PrismaClient();
 
 const severityEnum = {
@@ -14,9 +15,7 @@ const severityEnum = {
 export class PostgresLogDatasourceImpl implements LogDatasource {
 
   async saveLog(log: LogEntity): Promise<void> {
-
     try {
-
       const level = severityEnum[log.level];
 
       // create new log
@@ -27,13 +26,13 @@ export class PostgresLogDatasourceImpl implements LogDatasource {
         }
       });
 
-      console.log('PostgresLogDatasource -> saveLog ->', newLog);
-
+      console.log('PostgresLogDatasource -> saveLog ->', newLog.createAt);
     } catch (error) {
       console.log('PostgresLogDatasource -> saveLog -> error', error);
       throw new Error("Error saving log");
     }
   }
+
   async getLogs(severityLevel: LogSeverityLevel): Promise<LogEntity[]> {
 
     const level = severityEnum[severityLevel];
@@ -48,5 +47,4 @@ export class PostgresLogDatasourceImpl implements LogDatasource {
       throw new Error("Error getting logs");
     }
   }
-
 }

@@ -1,3 +1,4 @@
+import { CheckService } from "../domain/use-cases/checks/check-service";
 import { CheckServiceMultiple } from "../domain/use-cases/checks/check-service-multipe";
 import { FileSystemDatasourceImpl } from "../infrastructure/datasources/file-system.datasource.Impl";
 import { MongoLogDatasourceImpl } from "../infrastructure/datasources/mongo-log.datasource.impl";
@@ -25,7 +26,9 @@ export class Server {
   static executeCheckService(url: string) {
     // Ejecución de log repository independiente
     // new CheckService(
-    //   logRepositoryMongo,
+    //   // logRepository,
+    //   // logRepositoryMongo,
+    //   logRepositoryPostgres,
     //   () => console.log(`Url: ${url} - status: Ok`),
     //   (error) => console.error('Error', error)
     // ).execute(url);

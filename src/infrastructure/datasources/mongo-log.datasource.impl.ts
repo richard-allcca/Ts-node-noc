@@ -7,7 +7,6 @@ import { LogEntity, LogSeverityLevel } from "../../domain/entities/log.entity";
 
 export class MongoLogDatasourceImpl implements LogDatasource {
 
-
   async saveLog(log: LogEntity): Promise<void> {
 
     // Connection to mongoDb
@@ -22,7 +21,7 @@ export class MongoLogDatasourceImpl implements LogDatasource {
       // Crear una colección = tabla, documento = registro
       const newLog = await LogModel.create(log);
       await newLog.save();
-      console.log('Mongo Log created', newLog.id);
+      console.log('Mongo --> saveLog -->', newLog.id);
     } catch (error) {
       console.log(error);
     }
@@ -40,5 +39,4 @@ export class MongoLogDatasourceImpl implements LogDatasource {
       throw new Error('Error getting logs');
     }
   }
-
 }
