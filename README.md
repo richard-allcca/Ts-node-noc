@@ -47,3 +47,63 @@ Network Operation Center
 - Node mailer [Documentación](https://nodemailer.com/)
 - Mongoose [Documentación](https://mongoosejs.com/)
 - Prisma [Documentación](https://www.prisma.io/docs/getting-started/quickstart)
+
+## Test
+
+Pasos para configurar Jest con TypeScript, en Node
+
+```bash
+      npm install -D jest @types/jest ts-jest supertest
+```
+
+Crear archivo de configuración de Jest
+
+```bash
+      npm jest --init
+```
+
+crear script 'yes'
+usar typescript 'yes'
+elegir entorno de desarrollo 'node'
+quieres agregar reportes de coverage 'yes'
+proveedor para código de cobertura 'v8'
+limpiar los mocks en automático 'no'
+
+En el archivo jest.config.js configurar
+
+```js
+      preset: 'ts-jest',
+      testEnvironment: "jest-environment-node",
+```
+<!--
+Opcional - The paths to modules that run some code to configure or set up the testing
+      environment before each test
+      setupFiles: ['dotenv/config']
+-->
+
+Crear scripts
+
+```json
+      "test": "jest",
+      "test:watch": "jest --watch",
+      "test:coverage": "jest --coverage"
+```
+
+Crear base de datos para test
+
+- Duplicar .env
+- Crear docker.compose.test
+
+Modificar scripts para tests
+
+```json
+"scripts": {
+    "dev": "tsnd --respawn --clear src/app.ts",
+    "build": "rimraf ./dist && tsc",
+    "start": "npm run build && node dist/app.js",
+    "docker:test": "docker compose -f docker-compose.test.yml --env-file .env.test up -d",
+    "test": "npm run docker:test && jest",
+    "test:watch": "npm run docker:test && jest --watch",
+    "test:coverage": "npm run docker:test && jest --coverage"
+  },
+```
