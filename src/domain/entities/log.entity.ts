@@ -23,13 +23,13 @@ export class LogEntity {
     const { level, message, origin, createAt = new Date() } = options;
     this.level = level;
     this.message = message;
-    this.createAt = createAt;
+    this.createAt = createAt ? new Date(createAt) : new Date();
     this.origin = origin;
   }
 
   // Mapea los elementos del file system para crear logs
   static fromJson = (json: string): LogEntity => {
-    const { message, level, createAt } = JSON.parse(json);
+    const { message, level, createAt, origin } = JSON.parse(json);
 
     const log = new LogEntity({ level, message,createAt, origin });
     return log;
