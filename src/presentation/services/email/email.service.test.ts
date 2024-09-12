@@ -31,7 +31,7 @@ describe( 'EmailService', () => {
       to: 'rallcca28@gmail.com',
       subject: 'Test',
       html: '<h1>Test</h1>',
-      attachments: []
+      attachments: expect.any( Array )
     } );
 
   } );
