@@ -27,6 +27,7 @@ export class LogEntity {
     this.origin = origin;
   }
 
+  // DESC - Factory constructor
   // Mapea los elementos del file system para crear logs
   static fromJson = (json: string): LogEntity => {
     const { message, level, createAt, origin } = JSON.parse(json);
