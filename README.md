@@ -10,12 +10,29 @@ Network Operation Center
 
 - Clonar .example.env a .env
 - Configurar variables de entorno
-- Levantar los contenedores ***docker compose up -a***
+- Levantar los contenedores para las bases de datos
+
+```bash
+      # Levanta los contenedores
+      docker compose -f docker-compose-local.yml up
+
+      # Detener los contenedores
+      docker compose -f docker-compose-local.yml down
+```
+
 - Prisma reset:
+
+> Este comando aplica las migraciones definidas en el esquema de Prisma a la base de datos, asegurando que la estructura de la base de datos esté actualizada con los cambios definidos en el código.
 
 ```bash
       # DB en carpetas locales
       npx prisma migrate dev
+```
+
+- Correr el proyecto con
+
+```bash
+      npm run dev
 ```
 
 ## Ejemplos de formato ISO  para temporizador
@@ -84,9 +101,9 @@ Opcional - The paths to modules that run some code to configure or set up the te
 ### Crear scripts
 
 ```json
-      "test": "jest",
-      "test:watch": "jest --watch",
-      "test:coverage": "jest --coverage"
+      "test": "jest", // Ejecuta todos los tests una vez
+      "test:watch": "jest --watch", // Ejecuta los tests en modo observador
+      "test:coverage": "jest --coverage" // Genera un reporte de cobertura de código
 ```
 
 ### Crear base de datos para test
@@ -101,9 +118,23 @@ Modificar scripts para tests
     "dev": "tsnd --respawn --clear src/app.ts",
     "build": "rimraf ./dist && tsc",
     "start": "npm run build && node dist/app.js",
-    "docker:test": "docker compose -f docker-compose.test.yml --env-file .env.test up -d",
-    "test": "npm run docker:test && jest",
-    "test:watch": "npm run docker:test && jest --watch",
-    "test:coverage": "npm run docker:test && jest --coverage"
+    "docker:test": "docker compose -f docker-compose.test.yml --env-file .env.test up -d", // Levanta los contenedores para el entorno de test
+    "test": "npm run docker:test && jest", // Levanta los contenedores y ejecuta los tests
+    "test:watch": "npm run docker:test && jest --watch", // Levanta los contenedores y ejecuta los tests en modo observador
+    "test:coverage": "npm run docker:test && jest --coverage" // Levanta los contenedores y genera un reporte de cobertura de código
   },
+```
+
+## Docker
+
+Para levantar los contenedores de Docker, ejecutar:
+
+```bash
+docker-compose up -d
+```
+
+Para detener los contenedores de Docker, ejecutar:
+
+```bash
+docker-compose down
 ```
