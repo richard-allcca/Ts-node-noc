@@ -22,6 +22,7 @@ export class CheckServiceMultiple implements CheckServiceMultiple {
     private readonly errorCallback: ErrorCallback
   ) {}
 
+  // Este método se encarga de guardar los logs en los repositorios
   private callLogs(log: LogEntity) {
     this.logRepositories.forEach(logRepository => {
       logRepository.saveLog(log);

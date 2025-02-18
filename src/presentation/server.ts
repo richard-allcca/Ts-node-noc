@@ -1,5 +1,6 @@
 import { CheckService } from "../domain/use-cases/checks/check-service";
 import { CheckServiceMultiple } from "../domain/use-cases/checks/check-service-multipe";
+import { SendEmailLogs } from "../domain/use-cases/email/send-email-logs";
 import { FileSystemDatasourceImpl } from "../infrastructure/datasources/file-system.datasource.Impl";
 import { MongoLogDatasourceImpl } from "../infrastructure/datasources/mongo-log.datasource.impl";
 import { LogRepositoryImpl } from "../infrastructure/repository/log.repository.impl";
@@ -24,7 +25,9 @@ const logRepositoryPostgres = new LogRepositoryImpl(
 export class Server {
 
   static executeCheckService(url: string) {
+
     // Ejecución de log repository independiente
+
     // new CheckService(
     //   // logRepository,
     //   // logRepositoryMongo,
@@ -34,6 +37,7 @@ export class Server {
     // ).execute(url);
 
     // Ejecución de log repositorio multiple
+
     new CheckServiceMultiple(
       [ logRepository ,logRepositoryMongo, logRepositoryPostgres ],
       () => console.log(`Url: ${url} - status: Ok`),
@@ -45,22 +49,23 @@ export class Server {
     console.log('Server started.....');
 
     // Send mails single
+
     // emailService.sendMail({
     //   to: 'richard_allcca_llano@hotmail.com',
     //   subject: 'Test email',
     //   htmlBody: '<h1>Test email</h1>',
     // });
 
-    // Send mails with case use 'service and repository'
-    // new SendEmailLogs(
-    //   emailService,
-    //   logRepository
-    // ).execute([
-    //   '"Richard A." <richard_allcca_llano@hotmail.com>',
-    //   '"Thouma dev" <rallcca28@gmail.com>',
-    // ]);
+    // Send mails multiple with case use
 
-    // - Url for job with 'cron'
+    new SendEmailLogs(
+      emailService,
+      logRepository
+    ).execute([
+      '"Richard A." <richard_allcca_llano@hotmail.com>',
+      '"Thouma dev" <rallcca28@gmail.com>',
+    ]);
+
     const url = 'https://www.google.com';
     // const url = 'http://localhost:3000/';// localhost de el proyecto json-server
 
