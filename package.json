@@ -9,7 +9,7 @@
     "start": "npm run build && node dist/app.js",
     "docker-up": "docker-compose up -d",
     "docker-down": "docker-compose down",
-    "docker:test": "docker compose -f docker-compose.test.yml --env-file .env.test up -d",
+    "docker:test": "docker compose -f docker-compose-test.yml --env-file .env.test up -d",
     "test": "npm run docker:test && jest",
     "test:watch": "npm run docker:test && jest --watch",
     "test:coverage": "npm run docker:test && jest --coverage"

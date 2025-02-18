@@ -56,7 +56,7 @@ Pasos para configurar Jest con TypeScript, en Node
       npm install -D jest @types/jest ts-jest supertest
 ```
 
-Crear archivo de configuración de Jest
+### Crear archivo de configuración de Jest
 
 ```bash
       npm jest --init
@@ -69,7 +69,7 @@ quieres agregar reportes de coverage 'yes'
 proveedor para código de cobertura 'v8'
 limpiar los mocks en automático 'no'
 
-En el archivo jest.config.js configurar
+> En el archivo jest.config.js configurar
 
 ```js
       preset: 'ts-jest',
@@ -81,7 +81,7 @@ Opcional - The paths to modules that run some code to configure or set up the te
       setupFiles: ['dotenv/config']
 -->
 
-Crear scripts
+### Crear scripts
 
 ```json
       "test": "jest",
@@ -89,10 +89,10 @@ Crear scripts
       "test:coverage": "jest --coverage"
 ```
 
-Crear base de datos para test
+### Crear base de datos para test
 
-- Duplicar .env
-- Crear docker.compose.test
+- Hacer una copia .env con el nombre de .env.test
+- Crear docker-compose-test.yml
 
 Modificar scripts para tests
 
