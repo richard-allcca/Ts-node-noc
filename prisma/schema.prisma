@@ -5,14 +5,15 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client-js" // Especifica el proveedor del cliente de Prisma
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("POSTGRES_URL")
+  provider = "postgresql" // Especifica que se usará PostgreSQL como base de datos
+  url      = env("POSTGRES_URL") // URL de conexión a la base de datos
 }
 
+// Definición del enum para los niveles de severidad
 enum SeverityLevel {
   LOW
   MEDIUM

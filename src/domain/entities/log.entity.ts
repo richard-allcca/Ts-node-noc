@@ -1,4 +1,3 @@
-
 export enum LogSeverityLevel {
   LOW = 'low',
   MEDIUM = 'medium',
@@ -30,11 +29,9 @@ export class LogEntity {
   // Mapea los elementos del file system para crear logs
   static fromJson = (json: string): LogEntity => {
     const { message, level, createAt } = JSON.parse(json);
-
-    const log = new LogEntity({ level, message,createAt, origin });
+    const log = new LogEntity({ level, message, createAt, origin });
     return log;
   };
-
 
   // Convierte los objetos que vienen de mongo el logs
   static fromObject = (object: { [key: string]: any }): LogEntity => {
