@@ -22,6 +22,8 @@
   "cSpell.words": [
     "datasource",
     "Datasource",
-    "datasources"
+    "datasources",
+    "INITDB",
+    "postgresql"
   ]
 }

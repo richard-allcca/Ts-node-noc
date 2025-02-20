@@ -6,7 +6,7 @@ interface IAttachment {
   path: string;
 }
 
-interface ISendMailOptions {
+export interface ISendMailOptions {
   to: string | string[];
   subject: string;
   htmlBody: string;
@@ -32,15 +32,17 @@ export class EmailService {
 
     try {
 
-      const sentInformation = await this.transporter.sendMail({
+      const emailOptions = {
         from: `Thouma. ${envs.MAILER_EMAIL}`,
         to,
         subject,
         html: htmlBody,
         attachments: attachments
-      });
+      }
 
-      console.log(sentInformation);
+      const sendInformation = await this.transporter.sendMail(emailOptions);
+
+      console.log(sendInformation);
       return true;
     } catch (error) {
 

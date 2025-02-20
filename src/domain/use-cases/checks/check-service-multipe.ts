@@ -17,13 +17,14 @@ type ErrorCallback = (error: string) => void;
 export class CheckServiceMultiple implements CheckServiceMultiple {
 
   constructor(
-    private readonly logRepository: LogRepository[],
+    private readonly logRepositories: LogRepository[],
     private readonly successCallback: SuccessCallback,
     private readonly errorCallback: ErrorCallback
   ) {}
 
+  // Este método se encarga de guardar los logs en los repositorios
   private callLogs(log: LogEntity) {
-    this.logRepository.forEach(logRepository => {
+    this.logRepositories.forEach(logRepository => {
       logRepository.saveLog(log);
     });
   }

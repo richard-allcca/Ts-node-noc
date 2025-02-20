@@ -6,19 +6,22 @@ import { LogEntity, LogSeverityLevel } from "../../domain/entities/log.entity";
 
 
 export class MongoLogDatasourceImpl implements LogDatasource {
+  private static isConnected: boolean = false;
 
-  async saveLog(log: LogEntity): Promise<void> {
-
-    // Connection to mongoDb
-    await MongoDatabase.connect(
-      {
+  private static async connect() {
+    if (!this.isConnected) {
+      await MongoDatabase.connect({
         mongoUrl: envs.MONGO_URL,
         dbName: envs.MONGO_DB_NAME
-      }
-    );
+      });
+      this.isConnected = true;
+    }
+  }
+
+  async saveLog(log: LogEntity): Promise<void> {
+    await MongoLogDatasourceImpl.connect();
 
     try {
-      // Crear una colección = tabla, documento = registro
       const newLog = await LogModel.create(log);
       await newLog.save();
       console.log('Mongo --> saveLog -->', newLog.id);
@@ -28,11 +31,10 @@ export class MongoLogDatasourceImpl implements LogDatasource {
   }
 
   async getLogs(severityLevel: LogSeverityLevel): Promise<LogEntity[]> {
+    await MongoLogDatasourceImpl.connect();
 
     try {
-      // Obtener todos los documentos
       const logs = await LogModel.find({ level: severityLevel });
-      // console.log( 'Mongo Logs',logs)
       return logs.map(el => LogEntity.fromObject(el));
     } catch (error) {
       console.log(error);
