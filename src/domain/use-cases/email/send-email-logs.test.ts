@@ -3,7 +3,7 @@ import { LogRepository } from "../../repository/log.repository";
 import { SendEmailLogs } from "./send-email-logs";
 
 
-describe( 'SendEmailLogs', () => {
+describe('SendEmailLogs', () => {
 
   const mockEmailService = {
     sendMailWithAttachments: jest.fn().mockResolvedValue(true), // Cambiado el nombre del método
@@ -21,7 +21,7 @@ describe( 'SendEmailLogs', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-  })
+  });
 
   test('should call sendEmail and saveLog', async () => {
     const result = await sendEmailLogs.execute('rallcca28@gmail.com');
@@ -31,12 +31,12 @@ describe( 'SendEmailLogs', () => {
     expect(mockLogRepository.saveLog).toBeCalledWith(expect.any(LogEntity));
     expect(mockLogRepository.saveLog).toBeCalledWith(expect.objectContaining({
       level: LogSeverityLevel.MEDIUM, // Asegúrate de que el nivel sea el correcto
-      message: `Email not sent to rallcca28@gmail.com`, // Asegúrate de que el mensaje sea el correcto
+      message: `Email successfully sent to rallcca28@gmail.com`, // Asegúrate de que el mensaje sea el correcto
       origin: 'SendEmailLogs.ts',
     }));
   });
 
-  test( 'should log in case of error', async () => {
+  test('should log in case of error', async () => {
     mockEmailService.sendMailWithAttachments.mockResolvedValue(false);
 
     const result = await sendEmailLogs.execute('fernando@google.com');
@@ -49,5 +49,5 @@ describe( 'SendEmailLogs', () => {
       message: expect.stringContaining('Error: Email not sent'),
       origin: 'SendEmailLogs.ts',
     }));
-  } );
-} );
+  });
+});
