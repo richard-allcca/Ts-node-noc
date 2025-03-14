@@ -1,7 +1,6 @@
 import { PrismaClient, SeverityLevel } from "@prisma/client";
 import { LogDatasource } from "../../domain/datasources/log.datasource";
 import { LogEntity, LogSeverityLevel } from "../../domain/entities/log.entity";
-import { LogModel } from './../../data/mongo/models/log.model';
 
 // Cliente basado en el scheme creado
 const prismaClient = new PrismaClient();
