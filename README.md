@@ -39,12 +39,16 @@ npm run dev
 ## Configuración de Prisma
 
 ```bash
+# 1. Install Prisma CLI as a development dependency
 npm install prisma --save-dev
 
+# 2. Run this command to will create a new Prisma project with a PostgreSQL datasource
+# and generate the necessary files for you to start working with Prisma.
 npx prisma init --datasource-provider postgres
 
-# crea tu schema en /schema.prisma
+# 3. Define tu modelo en /schema.prisma
 
+# 4. For generate the Prisma Client
 npx prisma migrate dev --name init
 ```
 

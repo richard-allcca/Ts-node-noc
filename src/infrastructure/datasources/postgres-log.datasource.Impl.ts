@@ -46,4 +46,34 @@ export class PostgresLogDatasourceImpl implements LogDatasource {
       throw new Error("Error getting logs");
     }
   }
+
+  async getEmailDomains(): Promise<any[]> {
+    try {
+      const result = await prismaClient.$queryRaw`
+        SELECT
+          *
+        FROM
+          (
+            SELECT
+              count(*) as total_users,
+              SUBSTRING(
+                email
+                FROM
+                  POSITION('@' IN email) + 1
+              ) AS dominio,
+              'Richard' AS nombre,
+              37 AS edad
+            FROM
+              users
+            GROUP BY
+              dominio
+            HAVING count(*) > 1
+          ) AS emails_domains;
+      `;
+      return result as any[];
+    } catch (error) {
+      console.log('PostgresLogDatasource -> getEmailDomains -> error', error);
+      throw new Error("Error executing query");
+    }
+  }
 }
